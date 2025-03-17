@@ -12,24 +12,30 @@ import { AuthService } from '@app/services/auth/auth.service';
 export class LoginComponent implements OnInit {
   user: any = {};
   isLoggedIn = false;
+  exibirSenha = false;
 
   constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {}
 
-  Login(){
+  exibirTextoSenha(){
+    this.exibirSenha = !this.exibirSenha;
+  }
+
+  logar(){
     this.isLoggedIn = true;
     this.authService.login(this.user)
     .subscribe(
       (response: any) => {
+        this.isLoggedIn = false;
         this.authService.setToken(response.accessToken);
         this.router.navigate(['/pedidos']);
       },
       (error: any) => {
+        this.isLoggedIn = false;
         console.log(`Error: ${error}`);
       }
     );
-    this.isLoggedIn = false;
   }
 
 }
