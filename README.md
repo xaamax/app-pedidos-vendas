@@ -43,7 +43,7 @@ npm install
 ```
 Inicie o servidor em modo de desenvolvimento
 ```bash
-npm run start
+npm run start:dev
 ```
 #### Frontend
 Navegue até o diretório do frontend
