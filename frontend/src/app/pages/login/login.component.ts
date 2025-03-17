@@ -22,15 +22,14 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.user)
     .subscribe(
       (response: any) => {
-        this.isLoggedIn = false;
         this.authService.setToken(response.accessToken);
-          this.router.navigate(['/pedidos']);
-        },
-        (error: any) => {
-          console.log(`Error: ${error}`);
-        }
-      );
-
+        this.router.navigate(['/pedidos']);
+      },
+      (error: any) => {
+        console.log(`Error: ${error}`);
+      }
+    );
+    this.isLoggedIn = false;
   }
 
 }

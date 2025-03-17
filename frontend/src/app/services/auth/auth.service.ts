@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 @Injectable({
   providedIn: 'root',
 })
+
 export class AuthService {
   constructor(private http: HttpClient, private cookieService: CookieService) {}
 

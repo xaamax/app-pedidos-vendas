@@ -11,7 +11,7 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private router: Router, private cookieService: CookieService){}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
-    if (localStorage.getItem('token') !== null) {
+    if (this.cookieService.get('ACCESS_TOKEN')) {
       const cloneHttp = req.clone({
         headers: req.headers.set('Authorization', `Bearer ${this.cookieService.get('ACCESS_TOKEN')}`)
       });
