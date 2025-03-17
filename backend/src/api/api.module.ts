@@ -1,18 +1,17 @@
-import { Module } from '@nestjs/common';
+import { Module } from "@nestjs/common";
 
-import { ApiController } from './api.controller';
-import { ApiService } from './api.service';
-import { APP_GUARD } from '@nestjs/core';
-import { AuthGuard } from 'src/common/guards/auth.guard';
+import { ApiController } from "./api.controller";
+import { ApiService } from "./api.service";
+import { APP_GUARD } from "@nestjs/core";
+import { AuthGuard } from "src/common/guards/auth.guard";
 
 @Module({
   controllers: [ApiController],
-  providers: [
-    ApiService,
+  providers: [ApiService,
     {
-      provide: APP_GUARD,
-      useClass: AuthGuard,
-    },
+      provide: APP_GUARD, 
+      useClass: AuthGuard
+    }
   ],
   exports: [ApiService],
 })
