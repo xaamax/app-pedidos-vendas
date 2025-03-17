@@ -1,0 +1,34 @@
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - app_network
+  app-pedidos-backend:
+    build: ./backend
+    container_name: backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/pedidos_db
+    networks:
+      - app_network
+  app-pedidos-frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "80:80"
+    depends_on:
+      -  app-pedidos-backend
+    networks:
+      - app_network
+volumes:
+  mongo-data:
+networks:
+  app_network:

@@ -1,0 +1,88 @@
+<div class="mb-4">
+  <div class="d-flex justify-content-between mb-3">
+    <div>
+      <button class="btn btn-primary" (click)="criar()">Criar Pedido</button>
+    </div>
+    <div class="mb-4">
+      <label class="me-3">
+        <input
+          type="checkbox"
+          [checked]="filtrosSelecionados.includes(StatusPedido.pendente)"
+          (change)="atualizarFiltro(StatusPedido.pendente, $event)"
+        />
+        Pendentes
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          [checked]="filtrosSelecionados.includes(StatusPedido.processado)"
+          (change)="atualizarFiltro(StatusPedido.processado, $event)"
+        />
+        Processados
+      </label>
+    </div>
+  </div>
+
+  <table class="table table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th *ngFor="let fieldRow of fields">{{ fieldRow.label }}</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <ng-container *ngIf="pedidosFiltrados && pedidosFiltrados.length; else noPedidos">
+      <tbody *ngFor="let row of pedidosFiltrados; let i = index">
+        <tr>
+          <td *ngFor="let fieldRow of fields">
+              <span>{{ formatarValor(row[fieldRow.key], fieldRow.type) }}</span>
+          </td>
+          <td>
+            <button
+              *ngIf="row.status === 'Pendente'"
+              class="btn btn-success btn-sm me-2"
+              (click)="atualizarStatus(row); $event.stopPropagation()"
+            >
+              Processar Pedido
+            </button>
+            <button
+              class="btn btn-secondary btn-sm"
+              (click)="toggleProdutos(i); $event.stopPropagation()"
+            >
+              {{ linhaSelecionada === i ? "Ocultar Itens" : "Exibir Itens" }}
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="linhaSelecionada === i">
+          <td [colSpan]="fields.length + 1">
+            <h5>Itens do Pedido</h5>
+            <table class="table table-bordered table-sm">
+              <thead class="table-dark">
+                <tr>
+                  <th>Produto</th>
+                  <th>Quantidade</th>
+                  <th>Preço Unitário</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of row.itens">
+                  <td>{{ item.produto }}</td>
+                  <td>{{ item.quantidade }}</td>
+                  <td>{{ formatarValor(item.precoUnitario, 'currency') }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </ng-container>
+    <ng-template #noPedidos>
+      <tbody>
+        <tr>
+          <td [colSpan]="fields.length + 1" class="text-center">
+            Nenhum pedido encontrado.
+          </td>
+        </tr>
+      </tbody>
+    </ng-template>
+  </table>
+</div>

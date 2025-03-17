@@ -1,0 +1,42 @@
+.login-wrapper {
+  background-color: #f4f6f9;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  height: 100vh;
+}
+
+.login-page {
+  text-align: center;
+  align-items: center;
+  background-color: #e9ecef;
+  display: -ms-flexbox;
+  display: flex
+;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 100vh;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+
+.login-box, .register-box {
+  width: 360px;
+}
+
+.login-wrapper .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.wallpaper {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: url("https://img.freepik.com/fotos-gratis/vista-superior-do-homem-entregando-um-pacote-cibernetico-para-uma-mulher_23-2148675046.jpg?t=st=1742185451~exp=1742189051~hmac=ea3b300b1026dd86c193ab4ae186f100fe67fa273d2d58cbe2f73227c9c2f2a5&w=900") no-repeat;
+  background-size: cover;
+}

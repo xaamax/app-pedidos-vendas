@@ -10,7 +10,7 @@ async function bootstrap() {
   const app = await NestFactory.create<NestApplication>(AppModule);
   app.useGlobalPipes(new ValidationPipe({ whitelist: true })); // Habilita a validação de dados (DTO)
   app.useGlobalFilters(new MyExceptionFilter());
-  
+  app.enableCors({origin: '*'});
   // Configuração do Swagger (Documentação da API automáticamente)
   const config = new DocumentBuilder()
     .setTitle('API pedidos')
