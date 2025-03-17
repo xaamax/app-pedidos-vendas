@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from '@app/models/User';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -8,7 +9,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 
 export class AuthService {
-  constructor(private http: HttpClient, private cookieService: CookieService) {}
+  constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) {}
 
   login(model: User): any {
     return this.http
@@ -25,5 +26,6 @@ export class AuthService {
 
   logout() {
     this.cookieService.delete('ACCESS_TOKEN', '/');
+    this.router.navigate(['/auth']);
   }
 }

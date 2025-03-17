@@ -61,12 +61,13 @@
     <!-- Lista de produtos adicionados -->
     <h3>Produtos no Pedido</h3>
     <table class="table table-striped">
-      <thead>
+      <thead class="table-dark">
         <tr>
           <th>Produto</th>
           <th>Quantidade</th>
           <th>Preço Unitário (R$)</th>
           <th>Total (R$)</th>
+          <th>Ações</th>
         </tr>
       </thead>
       <tbody>
@@ -84,7 +85,7 @@
 
     <!-- Botão para enviar o pedido -->
     <div class="text-end">
-      <button class="btn btn-success" (click)="enviarPedido()">Enviar Pedido</button>
+      <button class="btn btn-success" (click)="enviarPedido()" [disabled]="!produtos.length">Enviar Pedido</button>
     </div>
   </div>
 </div>

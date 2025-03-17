@@ -56,16 +56,6 @@ export class PedidoDetalheComponent {
   }
 
   enviarPedido() {
-    if (!this.cliente) {
-      alert('Por favor, insira o nome do cliente antes de enviar o pedido.');
-      return;
-    }
-
-    if (this.produtos.length === 0) {
-      alert('Adicione pelo menos um produto ao pedido.');
-      return;
-    }
-
     const pedido: Pedido = {
       cliente: this.cliente,
       itens: this.produtos,

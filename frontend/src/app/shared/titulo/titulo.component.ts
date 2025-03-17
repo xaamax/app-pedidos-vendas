@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth/auth.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -8,18 +9,21 @@ import { Router } from '@angular/router';
 })
 export class TituloComponent implements OnInit {
   @Input() template = '';
-  @Input() titulo = '';
   @Input() subtitulo =  '';
   @Input() icone = 'fa fa-home';
   @Input() btnListar = false;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
   }
 
   listar(): void{
     this.router.navigate([`/${this.template.toLowerCase()}/lista`]);
+  }
+
+  logout(){
+    this.authService.logout();
   }
 
 }

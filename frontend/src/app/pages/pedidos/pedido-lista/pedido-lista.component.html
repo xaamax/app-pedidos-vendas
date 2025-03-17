@@ -3,6 +3,24 @@
     <div>
       <button class="btn btn-primary" (click)="criar()">Criar Pedido</button>
     </div>
+    <div class="mb-4">
+      <label class="me-3">
+        <input
+          type="checkbox"
+          [checked]="filtrosSelecionados.includes(StatusPedido.pendente)"
+          (change)="atualizarFiltro(StatusPedido.pendente, $event)"
+        />
+        Pendentes
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          [checked]="filtrosSelecionados.includes(StatusPedido.processado)"
+          (change)="atualizarFiltro(StatusPedido.processado, $event)"
+        />
+        Processados
+      </label>
+    </div>
   </div>
 
   <table class="table table-striped">
@@ -10,14 +28,13 @@
       <tr>
         <th *ngFor="let fieldRow of fields">{{ fieldRow.label }}</th>
         <th>Ações</th>
-        <!-- Coluna para os botões -->
       </tr>
     </thead>
-    <ng-container *ngIf="pedidos && pedidos.length; else noPedidos">
-      <tbody *ngFor="let row of pedidos; let i = index">
-        <tr style="cursor: pointer">
+    <ng-container *ngIf="pedidosFiltrados && pedidosFiltrados.length; else noPedidos">
+      <tbody *ngFor="let row of pedidosFiltrados; let i = index">
+        <tr>
           <td *ngFor="let fieldRow of fields">
-            <span>{{ row[fieldRow.key] }}</span>
+              <span>{{ formatarValor(row[fieldRow.key], fieldRow.type) }}</span>
           </td>
           <td>
             <button
@@ -50,7 +67,7 @@
                 <tr *ngFor="let item of row.itens">
                   <td>{{ item.produto }}</td>
                   <td>{{ item.quantidade }}</td>
-                  <td>{{ item.precoUnitario | currency : "BRL" }}</td>
+                  <td>{{ formatarValor(item.precoUnitario, 'currency') }}</td>
                 </tr>
               </tbody>
             </table>
