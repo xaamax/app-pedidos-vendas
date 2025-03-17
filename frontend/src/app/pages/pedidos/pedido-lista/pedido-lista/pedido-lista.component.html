@@ -1,0 +1,71 @@
+<div class="mb-4">
+  <div class="d-flex justify-content-between mb-3">
+    <div>
+      <button class="btn btn-primary" (click)="criar()">Criar Pedido</button>
+    </div>
+  </div>
+
+  <table class="table table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th *ngFor="let fieldRow of fields">{{ fieldRow.label }}</th>
+        <th>Ações</th>
+        <!-- Coluna para os botões -->
+      </tr>
+    </thead>
+    <ng-container *ngIf="pedidos && pedidos.length; else noPedidos">
+      <tbody *ngFor="let row of pedidos; let i = index">
+        <tr style="cursor: pointer">
+          <td *ngFor="let fieldRow of fields">
+            <span>{{ row[fieldRow.key] }}</span>
+          </td>
+          <td>
+            <button
+              *ngIf="row.status === 'Pendente'"
+              class="btn btn-success btn-sm me-2"
+              (click)="atualizarStatus(row); $event.stopPropagation()"
+            >
+              Processar Pedido
+            </button>
+            <button
+              class="btn btn-secondary btn-sm"
+              (click)="toggleProdutos(i); $event.stopPropagation()"
+            >
+              {{ linhaSelecionada === i ? "Ocultar Itens" : "Exibir Itens" }}
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="linhaSelecionada === i">
+          <td [colSpan]="fields.length + 1">
+            <h5>Itens do Pedido</h5>
+            <table class="table table-bordered table-sm">
+              <thead class="table-dark">
+                <tr>
+                  <th>Produto</th>
+                  <th>Quantidade</th>
+                  <th>Preço Unitário</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of row.itens">
+                  <td>{{ item.produto }}</td>
+                  <td>{{ item.quantidade }}</td>
+                  <td>{{ item.precoUnitario | currency : "BRL" }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </ng-container>
+    <ng-template #noPedidos>
+      <tbody>
+        <tr>
+          <td [colSpan]="fields.length + 1" class="text-center">
+            Nenhum pedido encontrado.
+          </td>
+        </tr>
+      </tbody>
+    </ng-template>
+  </table>
+</div>

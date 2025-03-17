@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http'; // Importe o HttpClient
 import { Pedido } from '@app/models/Pedido'; // Importe as interfaces
 import { Produto } from '@app/models/Produto'; // Importe as interfaces
 import { StatusPedido } from '@app/common/types/status-pedido.enum';
 import { FormsModule } from '@angular/forms';
 import { PedidoService } from '@app/services/pedidos/pedido.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pedido-detalhe',
@@ -23,7 +23,7 @@ export class PedidoDetalheComponent {
 
   produtos: Produto[] = [];
 
-  constructor(private http: HttpClient, private pedidoService: PedidoService) {}
+  constructor(private router: Router, private pedidoService: PedidoService) {}
 
   adicionarProduto() {
     if (!this.cliente) {
@@ -74,12 +74,13 @@ export class PedidoDetalheComponent {
       dataPedido: new Date()
     };
 
-    this.pedidoService.post(pedido).subscribe({
+    this.pedidoService.createPedido(pedido).subscribe({
       next: (response) => {
         console.log('Pedido enviado com sucesso!', response);
         alert('Pedido enviado com sucesso!');
         this.produtos = [];
         this.cliente = '';
+        this.router.navigate(['/pedidos/lista']);
       },
       error: (err) => {
         console.error('Erro ao enviar pedido:', err);
