@@ -1,0 +1,53 @@
+<div class="login-wrapper">
+  <div class="col-md-8 px-0 d-none d-sm-block">
+    <div class="wallpaper"></div>
+  </div>
+
+  <div class="col-md-4 login-page">
+    <div class="login-box">
+        <div class="mb-3">
+          <h2>Pedidos<strong>App</strong></h2>
+        </div>
+        <form (ngSubmit)="Login()">
+          <div class="mb-2">
+            <div class="input-group">
+              <input
+                type="text"
+                id="username"
+                class="form-control"
+                placeholder="Usuário"
+                name="username"
+                [(ngModel)]="user.username"
+                required
+              />
+                <span class="input-group-text">
+                  <i class="fas fa-envelope"></i>
+                </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <input
+                type="password"
+                id="password"
+                class="form-control"
+                placeholder="Senha"
+                name="password"
+                [(ngModel)]="user.password"
+                required
+              />
+                <span class="input-group-text">
+                  <i class="fas fa-eye"></i>
+                </span>
+            </div>
+          </div>
+          <div class="d-grid gap-2">
+            <button class="btn btn-lg btn-primary block my-4" [disabled]="isLoggedIn">
+              <span>{{ isLoggedIn ? 'Acessando...' : 'Entrar' }}</span>
+            </button>
+          </div>
+
+        </form>
+    </div>
+  </div>
+</div>
