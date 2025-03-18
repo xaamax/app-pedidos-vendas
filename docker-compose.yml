@@ -10,7 +10,7 @@ services:
       - app_network
   app-pedidos-backend:
     build: ./backend
-    container_name: backend
+    container_name: app-pedidos-backend
     ports:
       - "3000:3000"
     depends_on:
@@ -21,7 +21,7 @@ services:
       - app_network
   app-pedidos-frontend:
     build: ./frontend
-    container_name: frontend
+    container_name: app-pedidos-frontend
     ports:
       - "80:80"
     depends_on:
