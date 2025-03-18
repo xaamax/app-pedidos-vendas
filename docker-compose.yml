@@ -23,7 +23,7 @@ services:
     build: ./frontend
     container_name: app-pedidos-frontend
     ports:
-      - "80:80"
+      - "4200:80"
     depends_on:
       -  app-pedidos-backend
     networks:
